@@ -1,1 +1,55 @@
-<p>login works!</p>
+<div class="login-page bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <h3 class="mb-3">Iniciar sesión</h3>
+                <div class="bg-white shadow rounded">
+                    <div class="row">
+                        <div class="col-md-7 pe-0">
+                            <div class="form-left h-100 py-5 px-5">
+                                <form (submit)="login()" class="row g-4">
+                                    <div class="col-12 md:col-4">
+                                        <label>Correo electronico<span class="text-danger">*</span></label>
+                                        <div class="p-inputgroup">
+                                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                                            <input type="text" pInputText placeholder="Correo electronico">         
+                                        </div>
+                                    </div>
+                                    <div class="col-12 md:col-4">
+                                        <label>Contraseña<span class="text-danger">*</span></label>
+                                        <div class="p-inputgroup">
+                                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                                            <input type="password" pInputText placeholder="Contraseña">         
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
+                                            <label class="form-check-label" for="inlineFormCheck">Recuerdame</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <a href="#" class="float-end text-primary">Recuperar contraseña?</a>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button pButton type="submit" label="Iniciar" class="p-button-success float-end"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 ps-0 d-none d-md-block">
+                            <div class="form-right h-100 bg-success text-white text-center pt-5">
+                                <i class="bi bi-bootstrap"></i>
+                                <h2 class="fs-1">DocsWARE</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-end text-secondary mt-3">Solman Ingenieria S.A.S.</p>
+            </div>
+        </div>
+    </div>
+</div>

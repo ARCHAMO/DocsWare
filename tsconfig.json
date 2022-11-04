@@ -21,7 +21,24 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@views/*": [
+        "src/views/*"
+      ],
+      "@core/*": [
+        "src/core/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "exceljs": [
+        "node_modules/exceljs/dist/exceljs.min"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
