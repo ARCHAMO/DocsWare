@@ -1,31 +1,41 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
-import { AppRoutingModule } from './app-routing.module';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
-import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
-import { LayoutModule } from './views/layout/layout.module';
-import { AuthGuard } from './core/guard/auth.guard';
-import { HttpBaseService } from './core/services/http-base.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { AppLayoutModule } from './layout/app.layout.module';
+import { NotfoundComponent } from './demo/components/notfound/notfound.component';
+import { ProductService } from './demo/service/product.service';
+import { CountryService } from './demo/service/country.service';
+import { CustomerService } from './demo/service/customer.service';
+import { EventService } from './demo/service/event.service';
+import { IconService } from './demo/service/icon.service';
+import { NodeService } from './demo/service/node.service';
+import { PhotoService } from './demo/service/photo.service';
+import { AuthGuard } from './demo/guard/auth.guard';
+import { HttpBaseService } from './demo/service/httpBase.service';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorPageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    LayoutModule
-  ],
-  providers: [
-    AuthGuard,
-    HttpBaseService,
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent, NotfoundComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        AppLayoutModule
+    ],
+    providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        CountryService,
+        CustomerService,
+        EventService,
+        IconService,
+        NodeService,
+        PhotoService,
+        ProductService,
+        AuthGuard,
+        HttpBaseService,
+        MessageService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

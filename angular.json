@@ -3,11 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DocsWare": {
+    "sakai-ng": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
       },
       "root": "",
@@ -17,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/docs-ware",
+            "outputPath": "dist/sakai-ng",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,17 +29,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets"
-              
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",              
               "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
           "configurations": {
@@ -44,8 +39,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -76,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DocsWare:build:production"
+              "browserTarget": "sakai-ng:build:production"
             },
             "development": {
-              "browserTarget": "DocsWare:build:development"
+              "browserTarget": "sakai-ng:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DocsWare:build"
+            "browserTarget": "sakai-ng:build"
           }
         },
         "test": {
@@ -107,11 +102,24 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
+  "defaultProject": "sakai-ng",
   "cli": {
-    "analytics": "52e03206-9acb-4687-bd1c-fa1b0e751419"
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
