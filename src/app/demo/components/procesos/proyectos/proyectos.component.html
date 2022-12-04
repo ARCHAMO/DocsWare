@@ -1,1 +1,20 @@
-<p>proyectos works!</p>
+<div class="card">
+    <button pButton type="button" label="Crear nuevo" (click)="crearNuevo()" class="p-button-text"></button>
+    <p-table [value]="arrayProjects" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" scope="">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-project>
+            <tr>
+                <td><i class="{{project.icon}}"></i></td>
+                <td>{{project.name}}</td>
+                <td>{{project.description}}</td>
+                <td>...</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

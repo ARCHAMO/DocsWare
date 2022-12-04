@@ -14,6 +14,10 @@ import { PhotoService } from './demo/service/photo.service';
 import { AuthGuard } from './demo/guard/auth.guard';
 import { HttpBaseService } from './demo/service/httpBase.service';
 import { MessageService } from 'primeng/api';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptor } from './demo/interceptors/loader.interceptor';
+import { LoaderService } from './demo/service/loader.service';
 
 @NgModule({
     declarations: [
@@ -21,7 +25,8 @@ import { MessageService } from 'primeng/api';
     ],
     imports: [
         AppRoutingModule,
-        AppLayoutModule
+        AppLayoutModule,
+        NgxSpinnerModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -34,7 +39,13 @@ import { MessageService } from 'primeng/api';
         ProductService,
         AuthGuard,
         HttpBaseService,
-        MessageService
+        MessageService,
+        LoaderService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: LoaderInterceptor,
+            multi: true
+        },
     ],
     bootstrap: [AppComponent]
 })

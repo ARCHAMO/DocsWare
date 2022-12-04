@@ -1,1 +1,12 @@
-<p>crear-proyecto works!</p>
+<div class="card">
+    <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-4">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText formControlName="nombre">
+                    <label for="float-input">Nombre</label>
+                </span>
+            </div>
+        </div>
+    </form>
+</div>

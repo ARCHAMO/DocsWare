@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ProyectosRoutingModule } from './proyectos-routing.module';
 import { ProyectosComponent } from './proyectos.component';
 import { CrearProyectoComponent } from './crear-proyecto/crear-proyecto.component';
+import { SharedPrimengModule } from '../../../../shared-primeng.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +15,10 @@ import { CrearProyectoComponent } from './crear-proyecto/crear-proyecto.componen
   ],
   imports: [
     CommonModule,
-    ProyectosRoutingModule
-  ]
+    ProyectosRoutingModule,
+    SharedPrimengModule,
+    FormsModule,
+    ReactiveFormsModule,
+]
 })
 export class ProyectosModule { }

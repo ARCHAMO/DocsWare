@@ -8,7 +8,7 @@ import { ProcesosRoutingModule } from './procesos-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    ProcesosRoutingModule
+    ProcesosRoutingModule,
   ]
 })
 export class ProcesosModule { }

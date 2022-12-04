@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         public layoutService: LayoutService,
         private _formBuilder: FormBuilder,
         private _httpBase: HttpBaseService,
-        private _service: MessageService,
+        private _serviceMessage: MessageService,
         private _router: Router
     ) { }
 
@@ -48,27 +48,45 @@ export class LoginComponent implements OnInit {
     /**
      * Inicializa las propiedades de los campos de los formularios utilizados
      */
-    private initForms(): void {
+    initForms(): void {
 
     }
 
     /**
      * Metodo que consume el webapi para iniciar sesion
      */
-    public login() {
+    login(): void {
         const formLogin = this.formGroupLogin?.value;
         this._httpBase.postMethod('user/login', formLogin).subscribe({
             next: (response: ResponseWebApi) => {
                 if (response.status === true) {
-                    localStorage.setItem('user', response.data);
-                    localStorage.setItem('isLoggedin', 'true')
-                    this._router.navigate(['dashboard']);
+                    this._generateToken();
+                    localStorage.setItem('user', JSON.stringify(response.data));
                 } else {
-                    this._service.add({ key: 'tst', severity: 'info', summary: 'Inicio sesión', detail: response.message });
+                    this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Inicio sesión', detail: response.message });
                 }
             },
             error: (error) => {
-                this._service.add({ key: 'tst', severity: 'error', summary: 'Inicio sesión', detail: error.message });
+                this._serviceMessage.add({ key: 'tst', severity: 'error', summary: 'Inicio sesión', detail: error.message });
+            }
+        });
+    }
+
+    private _generateToken(): void {
+        const formLogin = this.formGroupLogin?.value;
+        formLogin.gethash = true;
+        this._httpBase.postMethod('user/login', formLogin).subscribe({
+            next: (response: ResponseWebApi) => {
+                if (response.status === true) {
+                    localStorage.setItem('token', JSON.stringify(response.data.token));
+                    localStorage.setItem('isLoggedin', 'true')
+                    this._router.navigate(['dashboard']);
+                } else {
+                    this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Generando token', detail: response.message });
+                }
+            },
+            error: (error) => {
+                this._serviceMessage.add({ key: 'tst', severity: 'error', summary: 'Generando token', detail: error.message });
             }
         });
     }
