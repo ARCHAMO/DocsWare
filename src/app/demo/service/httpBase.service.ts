@@ -9,8 +9,8 @@ import { AuthUtils } from '../utils/auth-utils';
 })
 export class HttpBaseService {
 
-    // baseURL: string = "http://localhost:3977/api/";
-    baseURL: string = "/api/";
+    baseURL: string = "http://localhost:3977/api/";
+    // baseURL: string = "/api/";
 
     constructor(private _http: HttpClient) { }
 

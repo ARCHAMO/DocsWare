@@ -1,12 +1,33 @@
-<div class="card">
-    <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
-        <div class="grid p-fluid">
-            <div class="col-12 md:col-4">
-                <span class="p-float-label">
-                    <input id="float-input" type="text" pInputText formControlName="nombre">
-                    <label for="float-input">Nombre</label>
-                </span>
-            </div>
-        </div>
-    </form>
+<div class="grid p-fluid">
+	<div class="col-12 md:col-12">
+		<div class="card">
+            <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
+                <div class="grid p-fluid">
+                    <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+                        <label for="float-input">Nombre</label>
+                        <input type="text" pInputText placeholder="Nombre del proyecto" formControlName="name">
+                        <small class="p-error block" *ngIf="formGroupCreate.get('name')?.invalid && formGroupCreate.get('name')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-5 lg:mb-0">
+                        <label for="float-input">Descripción</label>
+                        <input type="text" pInputText placeholder="Descripción del proyecto" formControlName="description">
+                        <small class="p-error block" *ngIf="formGroupCreate.get('description')?.invalid && formGroupCreate.get('description')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+                        <label for="float-input">Icono</label>
+                        <input type="text" pInputText placeholder="Icono del proyecto" formControlName="icon">
+                        <small class="p-error block" *ngIf="formGroupCreate.get('icon')?.invalid && formGroupCreate.get('icon')?.dirty">Campo requerido</small>
+                    </div>
+    			</div>
+                <div class="mt-2 grid p-fluid">
+                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                        <button pButton pRipple label="Guardar" type="submit" [disabled]="formGroupCreate.invalid"></button>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                        <button pButton pRipple label="Cancelar" type="button" (click)="cancel()"></button>
+                    </div>
+                </div>
+            </form>
+		</div>
+	</div>
 </div>

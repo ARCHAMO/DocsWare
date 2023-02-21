@@ -4,18 +4,22 @@ import { ProyectosComponent } from './proyectos.component';
 import { CrearProyectoComponent } from './crear-proyecto/crear-proyecto.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ProyectosComponent
-  },
-  {
-    path: 'crear',
-    component: CrearProyectoComponent
-  },
+    {
+        path: '',
+        component: ProyectosComponent
+    },
+    {
+        path: 'crear',
+        component: CrearProyectoComponent
+    },
+    {
+        path: 'consultar/:id',
+        component: CrearProyectoComponent
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class ProyectosRoutingModule { }

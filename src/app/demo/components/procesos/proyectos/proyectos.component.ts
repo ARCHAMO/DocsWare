@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from 'src/app/demo/models/project.model';
 import { HttpBaseService } from '../../../service/httpBase.service';
 import { ResponseWebApi } from '../../../api/ResponseWebApi';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { GeneralUtils } from 'src/app/demo/utils/general-utils';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,8 @@ export class ProyectosComponent implements OnInit {
 
     public arrayProjects: Project[] = [];
     public cols: any[] = [];
+    public menuItems: MenuItem[] = [];
+    public projectSelDetail!: Project;
 
     constructor(
         private _httpBase: HttpBaseService,
@@ -29,6 +31,14 @@ export class ProyectosComponent implements OnInit {
             { header: 'Descripción' },
             { header: 'Acciones' },
         ]
+
+        this.menuItems = [
+            {
+                label: 'Ver detalle',
+                icon: 'pi pi-fw pi-car',
+                command: () => this.details(this.projectSelDetail)
+            }
+        ];
         this.findAllProjects();
     }
 
@@ -51,4 +61,11 @@ export class ProyectosComponent implements OnInit {
         this._router.navigate(['procesos/proyectos/crear']);
     }
 
+    /**
+     * Metodo para realizar el redireccionamiento a la vista de detalle del vehiculo
+     * @param id Codigo unico del registro
+     */
+    details(project: Project): void {
+        this._router.navigate(['procesos/proyectos/consultar/' + project._id]);
+    }
 }

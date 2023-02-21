@@ -23,10 +23,10 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Seguridad',
                 items: [
+                    { label: 'Clientes', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/seguridad/clientes'] },
                     { label: 'Roles', icon: 'pi pi-fw pi-id-card', routerLink: ['/seguridad/roles'] },
                     { label: 'Perfiles', icon: 'pi pi-fw pi-check-square', routerLink: ['/seguridad/perfiles'] },
                     { label: 'Paginas', icon: 'pi pi-fw pi-bookmark', routerLink: ['/seguridad/paginas'] },
-                    { label: 'Clientes', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/seguridad/clientes'] },
                     { label: 'Usuarios', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/seguridad/usuarios'] },
                 ]
             },
