@@ -23,19 +23,10 @@ export class CrearProyectoComponent implements OnInit {
     /**
      *
      */
-    private _idEdit!: boolean;
-    /**
-     *
-     */
     public _id!: string;
     /**
-     *
+     * Formulario para crear o editar un proyecto
      */
-    private _projectEdit!: Project;
-
-    /**
-    * Formulario para crear o editar un modulo
-    */
     public formGroupCreate: FormGroup = this._formBuilder.group({
         name: ['', Validators.compose([Validators.required])],
         description: ['', Validators.compose([Validators.required])],
@@ -63,6 +54,8 @@ export class CrearProyectoComponent implements OnInit {
     ngOnInit(): void {
         this._userLogin = GeneralUtils.cloneObject(AuthUtils.getUserLogin());
         this.formGroupCreate.patchValue({ customerId: this._userLogin.customerId, userCreationId: this._userLogin._id });
+        this._id = this._activatedRoute.snapshot.params['id'];
+        if (this.esEdit()) this.getById();
     }
 
     /**
@@ -70,14 +63,30 @@ export class CrearProyectoComponent implements OnInit {
      */
     submit(): void {
         if (this.formGroupCreate.valid) {
-            this._httpBase.postMethod('project', this.formGroupCreate.value).subscribe((response: ResponseWebApi) => {
-                this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Inicio sesión', detail: response.message });
-                this._router.navigate(['procesos/proyectos']);
-            });
+            this.esEdit() ? this.update() : this.save();
         } else {
             this.formGroupCreate.markAllAsTouched();
         }
+    }
 
+    /**
+     *
+     */
+    save(): void {
+        this._httpBase.postMethod('project', this.formGroupCreate.value).subscribe((response: ResponseWebApi) => {
+            this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Inicio sesión', detail: response.message });
+            this._router.navigate(['procesos/proyectos']);
+        });
+    }
+
+    /**
+     *
+     */
+    update(): void {
+        this._httpBase.putMethod('project/update/' + this._id, this.formGroupCreate.value).subscribe((response: ResponseWebApi) => {
+            this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Inicio sesión', detail: response.message });
+            this._router.navigate(['procesos/proyectos']);
+        });
     }
 
     /**
@@ -85,6 +94,32 @@ export class CrearProyectoComponent implements OnInit {
      */
     cancel(): void {
         this._router.navigate(['procesos/proyectos']);
+    }
+
+    /**
+     *
+     * @returns
+     */
+    esEdit(): boolean {
+        return this._id === undefined ? false : true;
+    }
+
+    /**
+     *
+     */
+    getById() {
+        this._httpBase.getMethod('project/' + this._id).subscribe({
+            next: (response: ResponseWebApi) => {
+                if (response.status === true) {
+                    this.formGroupCreate.patchValue(response.data);
+                } else {
+                    this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Buscar proyectos', detail: response.message });
+                }
+            },
+            error: (error) => {
+                this._serviceMessage.add({ key: 'tst', severity: 'error', summary: 'Buscar proyectos', detail: error.message });
+            }
+        });
     }
 
 }

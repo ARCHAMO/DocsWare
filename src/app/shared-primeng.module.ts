@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
     declarations: [],
@@ -12,13 +13,15 @@ import { ContextMenuModule } from 'primeng/contextmenu';
         TableModule,
         ButtonModule,
         InputTextModule,
-        ContextMenuModule
+        ContextMenuModule,
+        DropdownModule
     ],
     exports: [
         TableModule,
         ButtonModule,
         InputTextModule,
-        ContextMenuModule
+        ContextMenuModule,
+        DropdownModule
     ]
 })
 export class SharedPrimengModule { }

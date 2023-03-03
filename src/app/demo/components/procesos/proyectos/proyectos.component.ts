@@ -24,12 +24,14 @@ export class ProyectosComponent implements OnInit {
         private _router: Router
     ) { }
 
+    /**
+     *
+     */
     ngOnInit(): void {
         this.cols = [
             { header: 'Icono' },
             { header: 'Nombre' },
             { header: 'Descripción' },
-            { header: 'Acciones' },
         ]
 
         this.menuItems = [
@@ -42,6 +44,9 @@ export class ProyectosComponent implements OnInit {
         this.findAllProjects();
     }
 
+    /**
+     *
+     */
     findAllProjects() {
         this._httpBase.getMethod('projects').subscribe({
             next: (response: ResponseWebApi) => {
@@ -57,6 +62,9 @@ export class ProyectosComponent implements OnInit {
         });
     }
 
+    /**
+     *
+     */
     crearNuevo() {
         this._router.navigate(['procesos/proyectos/crear']);
     }

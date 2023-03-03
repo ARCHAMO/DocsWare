@@ -4,18 +4,22 @@ import { ModulosComponent } from './modulos.component';
 import { CrearModuloComponent } from './crear-modulo/crear-modulo.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ModulosComponent
-  },
-  {
-    path: 'crear',
-    component: CrearModuloComponent
-  },
+    {
+        path: '',
+        component: ModulosComponent
+    },
+    {
+        path: 'crear',
+        component: CrearModuloComponent
+    },
+    {
+        path: 'consultar/:id',
+        component: CrearModuloComponent
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class ModulosRoutingModule { }
