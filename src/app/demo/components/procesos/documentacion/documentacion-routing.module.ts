@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DocumentacionComponent } from './documentacion.component';
+import { CrearDocumentacionComponent } from './crear-documentacion/crear-documentacion.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DocumentacionComponent
-  },
-  {
-    path: 'crear',
-    component: DocumentacionComponent
-  },
+    {
+        path: '',
+        component: CrearDocumentacionComponent,
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class DocumentacionRoutingModule { }
+export class DocumentacionRoutingModule {}

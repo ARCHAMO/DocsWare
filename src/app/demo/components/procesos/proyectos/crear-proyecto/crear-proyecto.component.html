@@ -4,24 +4,24 @@
             <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
                 <div class="grid p-fluid">
                     <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-                        <label for="float-input">Nombre</label>
+                        <label for="float-input">Nombre del proyecto</label>
                         <input type="text" pInputText placeholder="Nombre del proyecto" formControlName="name">
-                        <small class="p-error block" *ngIf="formGroupCreate.get('name')?.invalid && formGroupCreate.get('name')?.dirty">Campo requerido</small>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('name')?.hasError('required') && formGroupCreate.get('name')?.dirty">Campo requerido</small>
                     </div>
                     <div class="col-12 mb-2 lg:col-5 lg:mb-0">
-                        <label for="float-input">Descripción</label>
+                        <label for="float-input">Descripción del proyecto</label>
                         <input type="text" pInputText placeholder="Descripción del proyecto" formControlName="description">
-                        <small class="p-error block" *ngIf="formGroupCreate.get('description')?.invalid && formGroupCreate.get('description')?.dirty">Campo requerido</small>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('description')?.hasError('required') && formGroupCreate.get('description')?.dirty">Campo requerido</small>
                     </div>
                     <div class="col-12 mb-2 lg:col-3 lg:mb-0">
-                        <label for="float-input">Icono</label>
-                        <input type="text" pInputText placeholder="Icono del proyecto" formControlName="icon">
-                        <small class="p-error block" *ngIf="formGroupCreate.get('icon')?.invalid && formGroupCreate.get('icon')?.dirty">Campo requerido</small>
+                        <label for="float-input">Fondo o icono del proyecto</label>
+                        <input type="text" pInputText placeholder="Icono o imagen" formControlName="icon">
+                        <small class="p-error block" *ngIf="formGroupCreate.get('icon')?.hasError('required') && formGroupCreate.get('icon')?.dirty">Campo requerido</small>
                     </div>
     			</div>
                 <div class="mt-2 grid p-fluid">
                     <div class="col-12 mb-2 lg:col-6 lg:mb-0">
-                        <button pButton pRipple label="Guardar" type="submit" [disabled]="formGroupCreate.invalid"></button>
+                        <button pButton pRipple label="Guardar" type="submit"></button>
                     </div>
                     <div class="col-12 mb-2 lg:col-6 lg:mb-0">
                         <button pButton pRipple label="Cancelar" type="button" (click)="cancel()"></button>
@@ -31,3 +31,79 @@
 		</div>
 	</div>
 </div>
+
+<div class="grid p-fluid">
+	<div class="col-12 md:col-12">
+		<div class="card">
+            <div class="col-12 md:col-12 lg:col-12">
+                <div class="flex justify-content-between">
+                    <span class="p-input-icon-left p-input-icon-right">
+                        <i class="pi pi-user"></i>
+                        <input type="text" pInputText placeholder="Buscar modulos" (input)="filterModule($event)"/>
+                        <i class="pi pi-search"></i>
+                    </span>
+                    <button pButton pRipple type="button" (click)="newModule()" icon="pi pi-plus" class="ml-3 p-button-rounded p-button-outlined"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3" *ngFor="let module of arrayFilterModules">
+        <div class="card">
+            <div class="flex justify-content-between flex-wrap card-container purple-container">
+                <div class="flex align-items-center justify-content-center">
+                    <div class="text-center">
+                        <i class="{{module.icon}} text-blue-500" style="font-size: 3rem"></i>
+                    </div>
+                </div>
+                <div class="flex align-items-center justify-content-center">
+                    <button pButton type="button" icon="pi pi-ellipsis-v" class="text-p-button-rounded p-button-text p-button-plain" (click)="toggleMenu(menu, $event, module)"></button>
+                    <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+                </div>
+            </div>
+            <div class="text-900 font-medium text-3xl mt-3 text-center">{{module.name}}</div>
+            <div class="mt-3">
+                <span class="block text-500 font-medium mb-3 text-justify">{{module.description}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog [(visible)]="moduleDialog" [style]="{width: '450px'}" header="Crear modulo" [modal]="true" class="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="formGroupCreateModule" autocomplete="off" (submit)="submitModule()" method="post" >
+            <div class="field">
+                <label for="float-input">Icono</label>
+                <p-dropdown [options]="arrayIconsList" [autoDisplayFirst]="false" optionLabel="iconClass" optionValue="iconClass" formControlName="icon">
+                    <ng-template let-icon pTemplate="item">
+                        <div class="flex align-items-center">
+                            <i class="{{icon.iconClass}}"></i>
+                            <span class="ml-2">{{icon.iconClass}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <small class="p-error block" *ngIf="formGroupCreateModule.get('icon')?.hasError('required') && formGroupCreateModule.get('icon')?.dirty">Campo requerido</small>
+            </div>
+            <div class="field">
+                <label for="float-input">Nombre</label>
+                <input type="text" pInputText placeholder="Nombre del modulo" formControlName="name">
+                <small class="p-error block" *ngIf="formGroupCreateModule.get('name')?.hasError('required') && formGroupCreateModule.get('name')?.dirty">Campo requerido</small>
+            </div>
+            <div class="field">
+                <label for="float-input">Descripción</label>
+                <textarea type="text" pInputText placeholder="Descripción del modulo" formControlName="description" style="resize:vertical"></textarea>
+                <small class="p-error block" *ngIf="formGroupCreateModule.get('description')?.hasError('required') && formGroupCreateModule.get('description')?.dirty">Campo requerido</small>
+            </div>
+            <div class="mt-2 grid p-fluid">
+                <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                    <button pButton pRipple label="Guardar" type="submit"></button>
+                </div>
+                <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                    <button pButton pRipple label="Cancelar" type="button" (click)="hideDialog()"></button>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+</p-dialog>

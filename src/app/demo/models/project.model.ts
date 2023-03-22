@@ -1,6 +1,6 @@
 import { Audit } from './audit.model';
 export interface Project extends Audit {
-    _id: string;
+    _id?: string;
     name: string;
     description: string;
     icon: string;

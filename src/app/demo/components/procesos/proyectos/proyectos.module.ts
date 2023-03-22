@@ -6,12 +6,14 @@ import { ProyectosComponent } from './proyectos.component';
 import { CrearProyectoComponent } from './crear-proyecto/crear-proyecto.component';
 import { SharedPrimengModule } from '../../../../shared-primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearModuloComponent } from '../modulos/crear-modulo/crear-modulo.component';
 
 
 @NgModule({
   declarations: [
     ProyectosComponent,
-    CrearProyectoComponent
+    CrearProyectoComponent,
+    CrearModuloComponent
   ],
   imports: [
     CommonModule,

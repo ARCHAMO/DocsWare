@@ -34,8 +34,13 @@ export class ModulosComponent implements OnInit {
         this.menuItems = [
             {
                 label: 'Ver detalle',
-                icon: 'pi pi-fw pi-car',
+                icon: 'pi pi-eye',
                 command: () => this.details(this.moduleSelDetail)
+            },
+            {
+                label: 'Eliminar',
+                icon: 'pi pi-eraser',
+                command: () => this.delete(this.moduleSelDetail)
             }
         ];
         this.findAllModules();
@@ -66,5 +71,24 @@ export class ModulosComponent implements OnInit {
      */
     details(module: Module): void {
         this._router.navigate(['procesos/modulos/consultar/' + module._id]);
+    }
+
+    /**
+     * Metodo para eliminar un registro especifico por su ID unico
+     * @param module Objeto que se va a eliminar
+     */
+     delete(module: Module): void {
+        this._httpBase.delMethod('module/' + module._id).subscribe({
+            next: (response: ResponseWebApi) => {
+                if (response.status === true) {
+                    this.findAllModules();
+                } else {
+                    this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Eliminando modulo', detail: response.message });
+                }
+            },
+            error: (error) => {
+                this._serviceMessage.add({ key: 'tst', severity: 'error', summary: 'Eliminando modulo', detail: error.message });
+            }
+        });
     }
 }

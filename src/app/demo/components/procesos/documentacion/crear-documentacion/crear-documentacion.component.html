@@ -1,1 +1,33 @@
-<p>crear-documentacion works!</p>
+<div class="grid p-fluid">
+	<div class="col-12 md:col-12">
+		<div class="card">
+            <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
+                <div class="grid p-fluid">
+                    <div class="col-6 mb-2 lg:col-6">
+                        <label for="float-input">Proyecto</label>
+                        <p-dropdown [options]="arrayProjects" [autoDisplayFirst]="false" optionLabel="name" formControlName="projectId" (onChange)="findAllModulesForIdProject($event.value._id)"></p-dropdown>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('projectId')?.hasError('required') && formGroupCreate.get('projectId')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-6 mb-2 lg:col-6">
+                        <label for="float-input">Modulo</label>
+                        <p-dropdown [options]="arrayModules" [autoDisplayFirst]="false" optionLabel="name" formControlName="moduloId"></p-dropdown>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('moduloId')?.hasError('required') && formGroupCreate.get('moduloId')?.dirty">Campo requerido</small>
+                    </div>
+    			</div>
+            </form>
+		</div>
+	</div>
+</div>
+
+<div class="grid p-fluid">
+	<div class="col-3 md:col-3">
+		<div class="card">
+            <p-tree [value]="nodesMenu" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
+            <p-contextMenu #cm [model]="items"></p-contextMenu>
+        </div>
+	</div>
+	<div class="col-9 md:col-9">
+		<div class="card">
+		</div>
+	</div>
+</div>

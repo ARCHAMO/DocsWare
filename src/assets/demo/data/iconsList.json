@@ -1,0 +1,9 @@
+{
+    "data": [
+        { "iconClass": "pi pi-plus" },
+        { "iconClass": "pi pi-align-center" },
+        { "iconClass": "pi pi-apple" },
+        { "iconClass": "pi pi-android" },
+        { "iconClass": "pi pi-amazon" }
+    ]
+}

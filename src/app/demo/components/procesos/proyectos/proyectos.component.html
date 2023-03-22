@@ -1,4 +1,4 @@
-<p-contextMenu #cm [model]="menuItems"></p-contextMenu>
+<!-- <p-contextMenu #cm [model]="menuItems"></p-contextMenu>
 <div class="card">
     <button pButton type="button" label="Crear nuevo" (click)="crearNuevo()" class="p-button-text"></button>
     <p-table [(contextMenuSelection)]="projectSelDetail" [contextMenu]="cm" dataKey="_id" [value]="arrayProjects" [paginator]="true" [rows]="10">
@@ -17,4 +17,40 @@
             </tr>
         </ng-template>
     </p-table>
+</div> -->
+
+<div class="grid p-fluid">
+	<div class="col-12 md:col-12">
+		<div class="card">
+            <div class="col-12 md:col-12 lg:col-12">
+                <div class="flex justify-content-between">
+                    <span class="p-input-icon-left p-input-icon-right">
+                        <i class="pi pi-user"></i>
+                        <input type="text" pInputText placeholder="Buscar proyecto" (input)="filterProject($event)"/>
+                        <i class="pi pi-search"></i>
+                    </span>
+                    <button pButton pRipple type="button" (click)="newProject()" icon="pi pi-plus" class="ml-3 p-button-rounded p-button-outlined"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12 lg:col-6 xl:col-3" *ngFor="let project of arrayFilterProjects">
+        <p-card header="{{project.name}}" subheader="" styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <div class="flex justify-content-between">
+                    <img alt="Card" src="{{project.icon}}">
+                    <div>
+                        <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" (click)="toggleMenu(menu, $event, project)"></button>
+                        <p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
+                    </div>
+                </div>
+                </ng-template>
+            <p>{{project.description}}</p>
+            <ng-template pTemplate="footer">
+            </ng-template>
+        </p-card>
+    </div>
 </div>

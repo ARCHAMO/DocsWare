@@ -20,7 +20,36 @@
         "lib": [
             "es2020",
             "dom"
-        ]
+        ],
+        "paths": {
+            "exceljs": [
+                "node_modules/exceljs/dist/exceljs.min"
+            ],
+            "@assets/*": [
+                "src/assets/*"
+            ],
+            "@api/*": [
+                "src/app/demo/api/*"
+            ],
+            "@components/*": [
+                "src/app/demo/components/*"
+            ],
+            "@guard/*": [
+                "src/app/demo/guard/*"
+            ],
+            "@interceptors/*": [
+                "src/app/demo/interceptors/*"
+            ],
+            "@models/*": [
+                "src/app/demo/models/*"
+            ],
+            "@service/*": [
+                "src/app/demo/service/*"
+            ],
+            "@utils/*": [
+                "src/app/demo/utils/*"
+            ],
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

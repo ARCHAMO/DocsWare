@@ -5,6 +5,10 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DropdownModule } from 'primeng/dropdown';
+import { CardModule } from 'primeng/card';
+import { MenuModule } from 'primeng/menu';
+import { DialogModule } from 'primeng/dialog';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
     declarations: [],
@@ -14,14 +18,22 @@ import { DropdownModule } from 'primeng/dropdown';
         ButtonModule,
         InputTextModule,
         ContextMenuModule,
-        DropdownModule
+        DropdownModule,
+        CardModule,
+        MenuModule,
+        DialogModule,
+        TreeModule
     ],
     exports: [
         TableModule,
         ButtonModule,
         InputTextModule,
         ContextMenuModule,
-        DropdownModule
+        DropdownModule,
+        CardModule,
+        MenuModule,
+        DialogModule,
+        TreeModule
     ]
 })
 export class SharedPrimengModule { }

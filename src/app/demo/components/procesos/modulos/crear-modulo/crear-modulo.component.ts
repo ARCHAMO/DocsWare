@@ -35,7 +35,7 @@ export class CrearModuloComponent implements OnInit {
         name: ['', Validators.compose([Validators.required])],
         description: ['', Validators.compose([Validators.required])],
         icon: ['', Validators.compose([Validators.required])],
-        projectId: ['', Validators.compose([])],
+        projectId: ['', Validators.compose([Validators.required])],
         customerId: ['', Validators.compose([])],
         userCreationId: ['', Validators.compose([])],
     });
@@ -62,6 +62,9 @@ export class CrearModuloComponent implements OnInit {
         this._id = this._activatedRoute.snapshot.params['id'];
         if (this.esEdit()) this.getById();
         this.getAllProjects();
+        this.formGroupCreate.valueChanges.subscribe(forms => {
+            console.log(forms);
+        })
     }
 
     /**
@@ -71,7 +74,7 @@ export class CrearModuloComponent implements OnInit {
         this._httpBase.getMethod('projects').subscribe({
             next: (response: ResponseWebApi) => {
                 if (response.status === true) {
-                    this.arrayProjects = GeneralUtils.cloneObject(response.data);
+                    this.arrayProjects = this.arrayProjects.concat(GeneralUtils.cloneObject(response.data));
                 } else {
                     this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Buscar proyectos', detail: response.message });
                 }
@@ -89,7 +92,9 @@ export class CrearModuloComponent implements OnInit {
         if (this.formGroupCreate.valid) {
             this.esEdit() ? this.update() : this.save();
         } else {
-            this.formGroupCreate.markAllAsTouched();
+            for (let i in this.formGroupCreate.controls) {
+                this.formGroupCreate.controls[i].markAsDirty();
+            }
         }
     }
 

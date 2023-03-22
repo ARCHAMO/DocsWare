@@ -5,15 +5,17 @@
         <ng-template pTemplate="header">
             <tr>
                 <th scope="">Icono</th>
+                <th scope="">Proyecto</th>
                 <th scope="">Nombre</th>
                 <th scope="">Descripción</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-project>
-            <tr [pContextMenuRow]="project">
-                <td><i class="{{project.icon}}"></i></td>
-                <td>{{project.name}}</td>
-                <td>{{project.description}}</td>
+        <ng-template pTemplate="body" let-module>
+            <tr [pContextMenuRow]="module">
+                <td><i class="{{module.icon}}"></i></td>
+                <td>{{module.projectId.name}}</td>
+                <td>{{module.name}}</td>
+                <td>{{module.description}}</td>
             </tr>
         </ng-template>
     </p-table>

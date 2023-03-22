@@ -18,22 +18,18 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './demo/interceptors/loader.interceptor';
 import { LoaderService } from './demo/service/loader.service';
+import { MenuService } from './demo/service/menu.service';
 
 @NgModule({
-    declarations: [
-        AppComponent, NotfoundComponent
-    ],
-    imports: [
-        AppRoutingModule,
-        AppLayoutModule,
-        NgxSpinnerModule
-    ],
+    declarations: [AppComponent, NotfoundComponent],
+    imports: [AppRoutingModule, AppLayoutModule, NgxSpinnerModule],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService,
         CustomerService,
         EventService,
         IconService,
+        MenuService,
         NodeService,
         PhotoService,
         ProductService,
@@ -44,9 +40,9 @@ import { LoaderService } from './demo/service/loader.service';
         {
             provide: HTTP_INTERCEPTORS,
             useClass: LoaderInterceptor,
-            multi: true
+            multi: true,
         },
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -50,4 +50,14 @@ export class HttpBaseService {
         return this._http.get(this.baseURL + urlEndpoint, { 'headers': headers })
     }
 
+    /**
+     * Metodo DELETE para eliminar un registro por su ID unico
+     * @param url que define el WebApi que será consumido
+     * @returns un observable con la respuesta del servidor
+     */
+    public delMethod(urlEndpoint: string): Observable<any> {
+        const authorization: string | null = AuthUtils.getUserToken();
+        const headers = { 'content-type': 'application/json', 'Authorization': `${authorization}` }
+        return this._http.delete(this.baseURL + urlEndpoint, { 'headers': headers })
+    }
 }

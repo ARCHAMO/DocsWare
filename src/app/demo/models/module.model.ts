@@ -1,3 +1,4 @@
+import { Project } from './project.model';
 export interface Module {
     _id: string;
     name: string;

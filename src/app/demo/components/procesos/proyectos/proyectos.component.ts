@@ -9,20 +9,45 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-proyectos',
     templateUrl: './proyectos.component.html',
-    styleUrls: ['./proyectos.component.scss']
+    styleUrls: ['./proyectos.component.scss'],
 })
 export class ProyectosComponent implements OnInit {
-
+    /**
+     *
+     */
     public arrayProjects: Project[] = [];
+
+    /**
+     *
+     */
+    public arrayFilterProjects: Project[] = [];
+
+    /**
+     *
+     */
     public cols: any[] = [];
+
+    /**
+     *
+     */
     public menuItems: MenuItem[] = [];
+
+    /**
+     *
+     */
     public projectSelDetail!: Project;
 
+    /**
+     *
+     * @param _httpBase
+     * @param _serviceMessage
+     * @param _router
+     */
     constructor(
         private _httpBase: HttpBaseService,
         private _serviceMessage: MessageService,
         private _router: Router
-    ) { }
+    ) {}
 
     /**
      *
@@ -32,16 +57,32 @@ export class ProyectosComponent implements OnInit {
             { header: 'Icono' },
             { header: 'Nombre' },
             { header: 'Descripción' },
-        ]
+        ];
 
         this.menuItems = [
             {
                 label: 'Ver detalle',
-                icon: 'pi pi-fw pi-car',
-                command: () => this.details(this.projectSelDetail)
-            }
+                icon: 'pi pi-eye',
+                command: () => this.details(this.projectSelDetail),
+            },
+            {
+                label: 'Eliminar',
+                icon: 'pi pi-eraser',
+                command: () => this.delete(this.projectSelDetail),
+            },
         ];
         this.findAllProjects();
+    }
+
+    /**
+     *
+     * @param menu
+     * @param event
+     * @param project
+     */
+    toggleMenu(menu: any, event: any, project: Project) {
+        this.projectSelDetail = GeneralUtils.cloneObject(project);
+        menu.toggle(event);
     }
 
     /**
@@ -51,21 +92,36 @@ export class ProyectosComponent implements OnInit {
         this._httpBase.getMethod('projects').subscribe({
             next: (response: ResponseWebApi) => {
                 if (response.status === true) {
-                    this.arrayProjects = GeneralUtils.cloneObject(response.data);
+                    this.arrayProjects = GeneralUtils.cloneObject(
+                        response.data
+                    );
+                    this.arrayFilterProjects = GeneralUtils.cloneObject(
+                        this.arrayProjects
+                    );
                 } else {
-                    this._serviceMessage.add({ key: 'tst', severity: 'info', summary: 'Buscar proyectos', detail: response.message });
+                    this._serviceMessage.add({
+                        key: 'tst',
+                        severity: 'info',
+                        summary: 'Buscar proyectos',
+                        detail: response.message,
+                    });
                 }
             },
             error: (error) => {
-                this._serviceMessage.add({ key: 'tst', severity: 'error', summary: 'Buscar proyectos', detail: error.message });
-            }
+                this._serviceMessage.add({
+                    key: 'tst',
+                    severity: 'error',
+                    summary: 'Buscar proyectos',
+                    detail: error.message,
+                });
+            },
         });
     }
 
     /**
      *
      */
-    crearNuevo() {
+    newProject() {
         this._router.navigate(['procesos/proyectos/crear']);
     }
 
@@ -75,5 +131,50 @@ export class ProyectosComponent implements OnInit {
      */
     details(project: Project): void {
         this._router.navigate(['procesos/proyectos/consultar/' + project._id]);
+    }
+
+    /**
+     * Metodo para eliminar un registro especifico por su ID unico
+     * @param project Objeto que se va a eliminar
+     */
+    delete(project: Project): void {
+        this._httpBase.delMethod('project/' + project._id).subscribe({
+            next: (response: ResponseWebApi) => {
+                if (response.status === true) {
+                    this.findAllProjects();
+                } else {
+                    this._serviceMessage.add({
+                        key: 'tst',
+                        severity: 'info',
+                        summary: 'Eliminando proyecto',
+                        detail: response.message,
+                    });
+                }
+            },
+            error: (error) => {
+                this._serviceMessage.add({
+                    key: 'tst',
+                    severity: 'error',
+                    summary: 'Eliminando proyectos',
+                    detail: error.message,
+                });
+            },
+        });
+    }
+
+    /**
+     * Metodo para filtrar los proyectos
+     * @param evento texto predictivo
+     */
+    public filterProject(evento: any): void {
+        const filtro = evento.target.value;
+        this.arrayFilterProjects = this.arrayProjects;
+        if (!!filtro) {
+            this.arrayFilterProjects = this.arrayProjects.filter((project) =>
+                (project.name + project.description)
+                    .toLowerCase()
+                    .includes(filtro.toLowerCase())
+            );
+        }
     }
 }

@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         ModulosComponent,
-        CrearModuloComponent
     ],
     imports: [
         CommonModule,
@@ -19,6 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SharedPrimengModule,
         FormsModule,
         ReactiveFormsModule,
-    ]
+    ],
 })
 export class ModulosModule { }
