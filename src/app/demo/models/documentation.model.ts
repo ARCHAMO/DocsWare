@@ -1,13 +1,14 @@
 export interface Documentation {
-    nombre: String,
-    descripcion: String,
-    icono: String,
-    documentationPadreId: String,
-    htmlData: String,
-    state: String,
-    moduloId: String,
-    userCreationId: String,
-    userModificationId: String,
-    createdAt: Date,
-    updatedAt: Date
+    name: string;
+    description: string;
+    icon: string;
+    customerId: string;
+    documentationPadreId: string;
+    htmlData: string;
+    state: string;
+    moduloId: string;
+    userCreationId: string;
+    userModificationId?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

@@ -4,16 +4,18 @@ import { map } from 'rxjs/operators';
 import { TreeNode } from 'primeng/api';
 
 @Injectable()
-export class MenuService {
+export class StateService {
     constructor(private http: HttpClient) {}
 
-    apiUrl = 'assets/demo/data/menuExample.json';
+    menus!: TreeNode[];
+
+    apiUrl = 'assets/demo/data/states.json';
 
     getMenu() {
         return this.http.get(this.apiUrl).pipe(
             map((response: any) => {
-                const icons = response.data;
-                return icons;
+                const states = response.data;
+                return states;
             })
         );
     }

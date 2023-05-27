@@ -1,33 +1,77 @@
-<div class="grid p-fluid">
-	<div class="col-12 md:col-12">
-		<div class="card">
-            <form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
-                <div class="grid p-fluid">
-                    <div class="col-6 mb-2 lg:col-6">
-                        <label for="float-input">Proyecto</label>
-                        <p-dropdown [options]="arrayProjects" [autoDisplayFirst]="false" optionLabel="name" formControlName="projectId" (onChange)="findAllModulesForIdProject($event.value._id)"></p-dropdown>
-                        <small class="p-error block" *ngIf="formGroupCreate.get('projectId')?.hasError('required') && formGroupCreate.get('projectId')?.dirty">Campo requerido</small>
+<form [formGroup]="formGroupCreate" autocomplete="off" (submit)="submit()" method="post" >
+    <div class="grid p-fluid">
+        <div class="col-12 md:col-12">
+            <div class="card">
+                    <div class="grid p-fluid">
+                        <div class="col-6 mb-2 lg:col-6">
+                            <label for="float-input">Proyecto</label>
+                            <p-dropdown [options]="arrayProjects" [autoDisplayFirst]="false" optionLabel="name" formControlName="projectId" (onChange)="findAllModulesForIdProject($event.value._id)"></p-dropdown>
+                            <small class="p-error block" *ngIf="formGroupCreate.get('projectId')?.hasError('required') && formGroupCreate.get('projectId')?.dirty">Campo requerido</small>
+                        </div>
+                        <div class="col-6 mb-2 lg:col-6">
+                            <label for="float-input">Modulo</label>
+                            <p-dropdown [options]="arrayModules" [autoDisplayFirst]="false" optionLabel="name" formControlName="moduloId" (onChange)="findAllDocumentationForIdModule($event.value._id)"></p-dropdown>
+                            <small class="p-error block" *ngIf="formGroupCreate.get('moduloId')?.hasError('required') && formGroupCreate.get('moduloId')?.dirty">Campo requerido</small>
+                        </div>
                     </div>
-                    <div class="col-6 mb-2 lg:col-6">
-                        <label for="float-input">Modulo</label>
-                        <p-dropdown [options]="arrayModules" [autoDisplayFirst]="false" optionLabel="name" formControlName="moduloId"></p-dropdown>
-                        <small class="p-error block" *ngIf="formGroupCreate.get('moduloId')?.hasError('required') && formGroupCreate.get('moduloId')?.dirty">Campo requerido</small>
-                    </div>
-    			</div>
-            </form>
-		</div>
-	</div>
-</div>
-
-<div class="grid p-fluid">
-	<div class="col-3 md:col-3">
-		<div class="card">
-            <p-tree [value]="nodesMenu" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
-            <p-contextMenu #cm [model]="items"></p-contextMenu>
+            </div>
         </div>
-	</div>
-	<div class="col-9 md:col-9">
-		<div class="card">
-		</div>
-	</div>
-</div>
+    </div>
+
+    <div class="grid p-fluid">
+        <div class="col-3 md:col-3">
+            <div class="card">
+                <p-tree [value]="nodesMenu" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
+                <p-contextMenu #cm [model]="items"></p-contextMenu>
+            </div>
+        </div>
+        <div class="col-9 md:col-9" *ngIf="esEdit || esCrear">
+            <div class="card">
+                <div class="grid p-fluid">
+                    <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+                        <label for="float-input">Nombre del nodo</label>
+                        <input type="text" pInputText placeholder="Nombre del proyecto" formControlName="name">
+                        <small class="p-error block" *ngIf="formGroupCreate.get('name')?.hasError('required') && formGroupCreate.get('name')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+                        <label for="float-input">Icono</label>
+                        <p-dropdown [options]="arrayIconsList" [autoDisplayFirst]="false" optionLabel="iconClass" optionValue="iconClass" formControlName="icon">
+                            <ng-template let-icon pTemplate="item">
+                                <div class="flex align-items-center">
+                                    <i class="{{icon.iconClass}}"></i>
+                                    <span class="ml-2">{{icon.iconClass}}</span>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('icon')?.hasError('required') && formGroupCreate.get('icon')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+                        <label for="float-input">Nodo padre</label>
+                        <p-dropdown [options]="arrayDocumentationPadre" [autoDisplayFirst]="false" optionLabel="name" formControlName="documentationPadreId">
+                            <ng-template let-icon pTemplate="item">
+                                <div class="flex align-items-center">
+                                    <i class="{{icon.iconClass}}"></i>
+                                    <span class="ml-2">{{icon.iconClass}}</span>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('documentationPadreId')?.hasError('required') && formGroupCreate.get('documentationPadreId')?.dirty">Campo requerido</small>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+                        <label for="float-input">Estado</label>
+                        <p-dropdown [options]="arrayEstados" [autoDisplayFirst]="false" optionLabel="valor" optionValue="valor" formControlName="state"></p-dropdown>
+                        <small class="p-error block" *ngIf="formGroupCreate.get('state')?.hasError('required') && formGroupCreate.get('state')?.dirty">Campo requerido</small>
+                    </div>
+                </div>
+                <div class="mt-2 grid p-fluid">
+                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                        <button pButton pRipple label="Guardar" type="submit"></button>
+                    </div>
+                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                        <button pButton pRipple label="Cancelar" type="button" (click)="cancel()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

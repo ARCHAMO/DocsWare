@@ -1,0 +1,8 @@
+{
+    "data": [
+        { "valor": "Creado" },
+        { "valor": "Revisado" },
+        { "valor": "Publicado" },
+        { "valor": "Eliminado" }
+    ]
+}

@@ -19,10 +19,17 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderInterceptor } from './demo/interceptors/loader.interceptor';
 import { LoaderService } from './demo/service/loader.service';
 import { MenuService } from './demo/service/menu.service';
+import { StateService } from './demo/service/state.service';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-build-classic';
 
 @NgModule({
     declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule, NgxSpinnerModule],
+    imports: [
+        AppRoutingModule,
+        AppLayoutModule,
+        NgxSpinnerModule,
+        // CKEditorModule,
+    ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService,
@@ -30,6 +37,7 @@ import { MenuService } from './demo/service/menu.service';
         EventService,
         IconService,
         MenuService,
+        StateService,
         NodeService,
         PhotoService,
         ProductService,
